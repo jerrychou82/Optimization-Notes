@@ -1,4 +1,5 @@
 \usepackage{tcolorbox}
+\usepackage{color}
 \tcbuselibrary{xparse}
 \newtheorem{theorem}{Theorem}
 \newtheorem{conjecture}[theorem]{Conjecture}
@@ -22,8 +23,16 @@
 \end{remk}}
 \newtheorem{sublemma}[theorem]{Sublemma}
 
+
+%%%%%%%%%%%%%%%%%%%% self-made commands
 \newenvironment{intuition}[1][]{\begin{tcolorbox}[title=Intuition (#1),fonttitle=\bfseries]}{\end{tcolorbox}}
 \DeclareTColorBox{conclusion}{}{fonttitle=\bfseries\sffamily\large, title=Conclusion, colframe=red!75!black,colback=red!5!white}
+\newcommand{\concept}{\noindent{\bf Concept}:}
+\newcommand{\proofidea}{\noindent{\bf\color{red} Proof Idea}: }
+\newcommand{\geometricview}{\noindent{\bf\color{green} Geometric View}: }
+\newcommand{\details}{\noindent{\bf Details}: }
+\newcommand{\problem}{\noindent{\bf Problem}: }
+\newcommand{\goal}{\noindent{\bf Goal}: }
 
 %%%%%%%%%%%%%%%%%%%% proof environments
 

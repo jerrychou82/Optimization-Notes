@@ -1,7 +1,9 @@
 \def\draft{0}
 \documentclass[11pt]{article}
 \usepackage{amsfonts, fullpage, rotating, amssymb}
-\usepackage{amsmath}
+\usepackage{amsmath,enumitem}
+\usepackage{hyperref}
+\usepackage[nameinlink]{cleveref}
 \input{macros}
 \pagestyle{plain}
 
@@ -29,7 +31,159 @@
 		\renewcommand{\arraystretch}{1}
 	\end{bfseries}
 \end{center}
-	
+
+\section{Convex Sets}
+
+\subsection{Definition and convexity}
+
+
+\subsection{Examples}
+
+\paragraph{2.14} ({\it expanded and restricted sets})\\
+\concept Scaling a set (either extending or shrinking) preserves convexity.\\
+\proofidea Drawing a trapezoid. 
+
+
+\subsection{Operations that preserve convexity}
+\paragraph{2.16} ({\it partial sum})\\
+\concept As sum preserves convexity, partial sum is just summing over a subspace and clearly preserves convexity.
+
+\paragraph{2.18} ({\it Invertible linear fractional function})\\
+\concept Consider the {\it Projective interpolation} in page 41.
+\details We associate a point in $x\in\R^n$ with a ray $\mathcal{P}(x) = \{t(x,1)|t\geq0\}$. Then we have
+\begin{itemize}
+	\item $f(x) = \mathcal{P}(Q(\mathcal{P}^{-1}(x)))$
+	\item $f^{-1}(y) = \mathcal{P}^{-1}(Q^{-1}(\mathcal{P}))$
+\end{itemize}
+
+\subsection{Separation theorem and supporting hyperplanes}
+In this subsection we investigate the powerful {\it separating hyperplane theorem}. The theorem states that
+$$\mbox{If C and D are {\bf disjoint} convex sets}\Rightarrow \exists\mbox{ separating hyperplane}$$
+This can be easily proved by finding one. But this is not the end of the story, we also care about the {\it converse} of the theorem. That is,
+$$\mbox{C and D are convex and there's a separting affine function}\Rightarrow \mbox{C and D are disjoint}$$
+Another important aspect is to find {\bf alternative} conditions for inequalities.\\
+For example: ({\it Alternatives for strict inequalities})
+$$Ax\prec b\Leftrightarrow \exists\lambda\mbox{ s.t. }\lambda\neq0,\ \lambda\succeq0,\ A^T\lambda=0,\ \lambda^Tb\leq0$$
+
+
+\paragraph{2.20} ({\it strictly positive solution of linear equations})\label{2.20}\\
+\goal $\exists x\succ0,\ Ax=b\Leftrightarrow\mbox{there's {\bf no }}\lambda\ \mbox{such that } A^T\lambda\succeq0,A^T\lambda\neq0,b^T\lambda\leq0$\\
+\details \hyperref[2.20details]{link}
+\begin{intuition}[strictly positive solution of linear equations]
+	"$\mbox{there's {\bf no }}\lambda\ \mbox{such that } A^T\lambda\succeq0,A^T\lambda\neq0,b^T\lambda\leq0$" is a sufficient condition for the existence of strictly positive solution.
+\end{intuition}
+
+\paragraph{2.22}({\it general-case separating hyperplane theorem})\\
+\goal If convex sets $C$ and $D$ are disjoint $\Rightarrow$ $\exists$ separating hyperplane.
+
+\paragraph{2.24}({\it examples of supporting hyperplane})\\
+\begin{enumerate}[label=(\alph*)]
+	\item A convex set $C$ = $\bigcap$ halfspaces constructed by the supporting hyperplanes that contain $C$
+	\item How to explicitly write down the supporting hyperplane of infinite norm.
+\end{enumerate}
+
+\paragraph{2.26}({\it support function})\\
+\begin{definition}[support function]
+	The support function of $C\subseteq \R^n$ is
+	$$S_C(y) = \sup\{y^Tx|x\in C\}$$
+\end{definition}
+\goal For two sets $C$ and $D$, $C=D\Leftrightarrow S_C=S_D$.\\
+\proofidea If $\exists x\in D,\ x\notin C$, then by {\it separating hyperplane theorem}, there is a hyper-plane $a^Tx+b$ that separates $x$ and $C$. Then either $a^Tx > S_C(a)$ or $-a^Tx > S_C(-a)$.
+\begin{intuition}[supporting function]
+	The maximizer of the supporting function is the point that being supported by the hyperplane with normal vector $y$.
+\end{intuition}
+
+
+\subsection{Convex cones and generalized inequalities}
+Here, we want to use a {\it proper cone} to define a generalized inequality and explore some useful results. First, we define the proper cone 
+\begin{definition}[proper cone]
+	We say a cone $K\subseteq\R^n$ is proper if
+	\begin{itemize}
+		\item $K$ is convex. (contains every line segments)
+		\item $K$ is closed. (consists every limit points)
+		\item $K$ is solid. (has interior point)
+		\item $K$ is pointed. (contains no line or contain $\mathbf{0}$)
+	\end{itemize}
+\end{definition}
+Then, we define a partial ordering on $\R^n$ with $K$ as follow
+$$x\preceq_Ky\Leftrightarrow y-x\in K$$
+, which is called {\it generalized inequality}.
+\begin{intuition}[generalized inequality]
+	To check whether $x\preceq_Ky$, we can move the center of the cone $K$ to $x$ and see whether $y$ is inside.
+\end{intuition}
+Next, we define the concept of dual cone
+\begin{definition}[dual cone]
+	Let $K$ be a cone, then
+	$$K^* = \{y: y^Tx\geq0,\ \forall x\in K\}$$
+	is the dual cone of $K$.
+\end{definition}
+\begin{intuition}[dual cone]
+	Geometrically, $y\in K^*\Leftrightarrow-y$ is the normal of a hyperplane that supports $K$ at the {\bf origin}.
+\end{intuition}
+\paragraph{2.28}({\it positive semidefinite cone})\\
+\goal Algebraic intuitions for positive semidefinite cone of dimension $n=1,2,3$.
+\paragraph{2.30}({\it properties of generalized inequality})
+The following is the properties of generalized inequality $\preceq_K$:
+\begin{itemize}
+	\item Preserved addition.
+	\item Transitive.
+	\item Preserved nonnegative scaling.
+	\item Reflexive.
+	\item Antisymmetric.
+	\item Preserved under limits.
+\end{itemize}
+
+\paragraph{2.32}({\it dual cone of the image of a linear transformation with nonnegative domain})\\
+\goal $K = \{Ax: x\succeq0\} \Rightarrow K^*=\{y:A^Ty\succeq0 \}$
+
+\paragraph{2.34}({\it lexicographic cone and ordering})\\
+\begin{definition}[lexicographic cone]
+	The lexicographic cone is
+	$$K_{lexi} = \{0\}\cup\{x\in\R^n: x_1=\cdots=x_k=0,\ x_{k+1}>0,\ \mbox{for some } k \}$$
+	Namely, the first nonzero entry is positive.
+\end{definition}
+Directly, we can define the lexicographic ordering as $x\leq_{lexi}y\Leftrightarrow y-x\in K_{lexi}$.\\
+We have
+\begin{itemize}
+	\item $K_{lexi}$ is a cone but not proper.
+	\item $\leq_{lexi}$ is a linear ordering.
+	\item $K^*_{lexi} = \R_+e_1 = \{(t,0,...,0):t\geq0\}$
+\end{itemize}
+\begin{intuition}[lexicographic cone and ordering]
+	Lexicographic ordering is like a {\bf dictionary}!
+\end{intuition}
+
+\paragraph{2.36}({\it Euclidean distance matrices})\\
+\goal The set of Euclidean distance matrices is a convex cone.
+\begin{definition}[Euclidean distance matrix]
+	We say $D\in\mathbf{S}^n$ is a Euclidean matrix if $\exists x_1,...,x_n\in\R^n$ such that $D_{ij} = ||x_i-x_j||^2_2$.
+\end{definition}
+Moreover, there's a necessary and sufficient condition for Euclidean distance matrix:
+$$D\in\mathbf{S}^n\mbox{ is a Euclidean distance matrix}\Leftrightarrow D_{ii} = 0,\ x^TDx\leq0\ \forall x\ s.t.\ \mathbf{1}^Tx=0$$
+\paragraph{2.38}({\it barrier cone, recession cone, normal cone})
+
+
+\appendix
+\section{Details}
+
+\paragraph{2.20}\label{2.20details}\hyperref[2.20]{link}\\
+$(\Rightarrow)$ is trivial. ($\Leftrightarrow$) is shown by separating hyperplane theorem as follow:
+\begin{enumerate}
+	\item If there's no $x\succ0,\ Ax=b$, it means that $\R_{++}^{n}$ and $\{x: Ax=b\}$ are disjoint.
+	\item Thus, we can apply {\it separating hyperplane theorem}: $\exists c\neq0,d$ such that 
+	\begin{itemize}
+		\item $c^Tx\geq d$ for all $x$ in $\R_{++}^n$
+		\item $c^Tx\leq d$ for all $x$ in $\{x:Ax=b\}$
+	\end{itemize}
+	\item By 2., we have
+	\begin{itemize}
+		\item $c\geq0$ and $d\leq0$.
+		\item As $\{x: Ax=b\}$ is {\bf affine}, a linear function either be a constant or takes all value. And here it can only be the constant case. That is, $\exists d'\leq d$ such that $c^Tx=d',\ \forall x\in\{x:Ax=b\}$.
+	\end{itemize}
+	\item By lemma
+	$$c^Tx=d',\ \forall x\in\{x:Ax=b\}\Leftrightarrow\exists\lambda\mbox{ such that }c=A^T\lambda,d'=b^T\lambda$$
+	There is a $\lambda$ such that $A^T\lambda=c\geq0$, $A^T\lambda=c\neq0$, and $c^T\lambda=d'\leq d\leq0$
+\end{enumerate}
 
 
 \newpage
